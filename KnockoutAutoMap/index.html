@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Knockout auto map</title>
+</head>
+<body>
+    <h1>Simple Object</h1>
+    <div data-bind="with: SimpleObject">
+        <p>Key: <span data-bind="text: Key"></span></p>
+        <p>Name: <span data-bind="text: Name"></span></p>
+        <p>Email: <span data-bind="text: Email"></span></p>
+    </div>
+
+    <h1>Complex Object</h1>
+    <div data-bind="with: ComplexObject">
+        <p>Person data</p>
+        <p>Key: <span data-bind="text: Key"></span></p>
+        <p>Name: <span data-bind="text: Name"></span></p>
+        <p>Email: <span data-bind="text: Email"></span></p>
+
+        <!--Direct access to property-->
+        <p>Job data</p>
+        <p>Job key: <span data-bind="text: Job.Key"></span></p>
+        <p>Job type: <span data-bind="text: Job.Type"></span></p>
+
+        <p>Company data</p>
+        <!--Access property by "with"-->
+        <div data-bind="with: Job.Company">
+            <p>Company key: <span data-bind="text: Key"></span></p>
+            <p>Company name: <span data-bind="text: Name"></span></p>
+
+            <p>Company Adress</p>            
+            <!--Direct access to nested property-->
+            <p>Company adress key: <span data-bind="text: Adress.Key"></span></p>
+            <p>Company adress Country: <span data-bind="text: Adress.Country"></span></p>
+        </div>        
+    </div>
+
+    <h1>Array Object</h1>
+    <ul data-bind="foreach: ArrayObject">
+        <li data-bind="text: Key() + ' - ' + Name()"></li>
+    </ul>
+
+    <input type="button" data-bind="click: Init" value="Load data" />
+
+    <script type="text/javascript" src="Scripts/knockout-3.3.0.debug.js"></script>
+    <script type="text/javascript" src="Scripts/komap.js"></script>
+    <script src="Scripts/testViewModel.js"></script>
+</body>
+</html>
