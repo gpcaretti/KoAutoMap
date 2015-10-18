@@ -30,6 +30,9 @@ ko.autoMap = {
         }
 
         observableProperty(map);
+
+        // gp - return the observable itself
+        return observableProperty;
     },
     mapToNew: function (jsProperty) {
         var observableReturn = new ko.observable();
@@ -37,18 +40,18 @@ ko.autoMap = {
         return observableReturn;
     },
     mapArray: function (jsArray, observableArray) {
-        observableArray.removeAll();
-
-        for (var i = 0; i < jsArray.length; i++) {
+        var items = [];
+        for (var i = 0; jsArray && (i < jsArray.length) ; i++) {
             var item = new ko.observable();
             this.map(jsArray[i], item);
-            observableArray.push(item());
+            items.push(item());
         }
+        observableArray(items);
+
+        // gp - return the observable itself
+        return observableArray;
     },
     mapArrayToNew: function (jsArray) {
-        var observableArray = new ko.observableArray();
-        this.mapArray(jsArray, observableArray);
-
-        return observableArray;
+        return this.mapArray(jsArray, new ko.observableArray());
     }
 }
